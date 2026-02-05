@@ -1,0 +1,509 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Vyta — Performance Gummies</title>
+  <meta name="description" content="Vyta Charge: intra-workout performance gummies. Pump • Hydration • Endurance. Non-stimulant • low sugar." />
+
+  <style>
+    :root{
+      --bg:#07070a;
+      --panel:#101019;
+      --panel2:#141424;
+      --text:#f5f5f7;
+      --muted:#b9bac6;
+      --line:rgba(255,255,255,.08);
+      --shadow:0 18px 60px rgba(0,0,0,.55);
+      --r:22px;
+
+      /* Tropical accents */
+      --a1:#ffd06b;
+      --a2:#ffa833;
+      --a3:#ff5d3a;
+
+      --good:#43e6a1;
+    }
+
+    *{box-sizing:border-box}
+    html,body{margin:0; padding:0}
+    body{
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
+      color:var(--text);
+      background:
+        radial-gradient(900px 600px at 80% -10%, rgba(255,168,51,.22), transparent 60%),
+        radial-gradient(900px 700px at 10% 10%, rgba(255,93,58,.12), transparent 58%),
+        radial-gradient(900px 700px at 35% 110%, rgba(255,208,107,.12), transparent 60%),
+        var(--bg);
+      line-height:1.4;
+      overflow-x:hidden;
+    }
+    a{color:inherit; text-decoration:none}
+    .wrap{max-width:1120px; margin:0 auto; padding:22px}
+
+    /* Sticky nav */
+    .nav{
+      position:sticky; top:0; z-index:50;
+      background: linear-gradient(to bottom, rgba(7,7,10,.92), rgba(7,7,10,.55));
+      backdrop-filter: blur(10px);
+      border-bottom:1px solid var(--line);
+    }
+    .nav-inner{display:flex; align-items:center; justify-content:space-between; gap:14px;}
+    .brand{
+      display:flex; align-items:center; gap:10px;
+      font-weight:900; letter-spacing:.08em;
+    }
+    .bolt{
+      width:14px; height:20px; display:inline-block;
+      background: linear-gradient(160deg, var(--a1), var(--a2));
+      clip-path: polygon(55% 0, 100% 0, 60% 45%, 88% 45%, 35% 100%, 45% 58%, 0 58%);
+      filter: drop-shadow(0 10px 18px rgba(255,168,51,.35));
+    }
+    .navlinks{display:flex; gap:10px; align-items:center; color:rgba(255,255,255,.86)}
+    .navlinks a{padding:10px 12px; border-radius:12px}
+    .navlinks a:hover{background:rgba(255,255,255,.05)}
+    .btn{
+      display:inline-flex; align-items:center; justify-content:center;
+      padding:12px 16px; border-radius:14px;
+      border:1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.04);
+      font-weight:800;
+      transition: transform .12s ease, background .12s ease, border-color .12s ease;
+      cursor:pointer;
+    }
+    .btn:hover{ transform: translateY(-1px); border-color: rgba(255,255,255,.18); background: rgba(255,255,255,.06); }
+    .btn.primary{
+      border:0;
+      background: linear-gradient(135deg, var(--a1), var(--a2), var(--a3));
+      color:#0f0f12;
+      box-shadow: 0 18px 42px rgba(255,168,51,.25);
+    }
+
+    /* Layout blocks */
+    .card{
+      border:1px solid var(--line);
+      border-radius: var(--r);
+      background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03));
+      box-shadow: var(--shadow);
+      overflow:hidden;
+    }
+
+    /* Hero */
+    .hero{
+      display:grid;
+      grid-template-columns: 1.15fr .85fr;
+      gap:16px;
+      padding:24px 0 8px;
+      align-items:stretch;
+    }
+    .hero-left{padding:26px;}
+    .kicker{
+      display:inline-flex; align-items:center; gap:10px;
+      padding:8px 12px; border-radius:999px;
+      border:1px solid rgba(255,168,51,.25);
+      background: rgba(255,168,51,.10);
+      color: var(--a1);
+      font-weight:900; letter-spacing:.12em; text-transform:uppercase; font-size:12px;
+    }
+    h1{
+      margin:14px 0 10px;
+      font-size: clamp(34px, 4.4vw, 58px);
+      line-height:1.03;
+    }
+    .sub{
+      color:var(--muted);
+      font-size: clamp(15px, 1.2vw, 18px);
+      max-width: 60ch;
+      margin: 0 0 18px;
+    }
+    .chips{display:flex; flex-wrap:wrap; gap:10px; margin:16px 0 16px}
+    .chip{
+      padding:10px 12px; border-radius:999px;
+      border:1px solid rgba(255,255,255,.10);
+      background: rgba(255,255,255,.04);
+      font-weight:800; font-size:13px;
+    }
+    .chip.good{border-color: rgba(67,230,161,.22); background: rgba(67,230,161,.08); color:#c9ffe9;}
+    .cta{display:flex; flex-wrap:wrap; gap:10px; align-items:center; margin-top:14px;}
+    .fine{font-size:12px; color:rgba(255,255,255,.58); margin-top:10px}
+
+    /* Hero media */
+    .hero-right{position:relative; min-height: 440px;}
+    .hero-media{position:absolute; inset:0;}
+    .hero-media img{
+      width:100%; height:100%;
+      object-fit:cover;
+      display:block;
+      opacity:.95;
+      transform: scale(1.02);
+    }
+    .hero-overlay{
+      position:absolute; inset:0;
+      background:
+        radial-gradient(700px 350px at 70% 20%, rgba(255,168,51,.24), transparent 60%),
+        linear-gradient(180deg, rgba(7,7,10,.08), rgba(7,7,10,.88));
+    }
+    .hero-badge{
+      position:absolute; left:18px; bottom:18px;
+      padding:14px 14px;
+      border-radius:18px;
+      border:1px solid rgba(255,255,255,.12);
+      background: rgba(10,10,14,.65);
+      backdrop-filter: blur(10px);
+      max-width: 88%;
+    }
+    .hero-badge strong{display:block; font-size:12px; letter-spacing:.12em; text-transform:uppercase;}
+    .hero-badge span{display:block; color:rgba(255,255,255,.72); margin-top:6px; font-size:13px}
+
+    /* Sections */
+    section{padding:18px 0}
+    .grid3{display:grid; grid-template-columns: repeat(3, 1fr); gap:14px;}
+    .tile{padding:18px; border-radius:20px; border:1px solid var(--line); background: rgba(255,255,255,.03);}
+    .tile h3{margin:0 0 6px}
+    .tile p{margin:0; color:var(--muted)}
+    .title{
+      display:flex; align-items:flex-end; justify-content:space-between; gap:12px;
+      margin: 6px 0 12px;
+    }
+    .title h2{margin:0; font-size:26px}
+    .title .muted{color:var(--muted); font-size:14px}
+
+    /* Product section */
+    .products{display:grid; grid-template-columns:1fr 1fr; gap:14px;}
+    .p-card{padding:18px; border-radius:22px; border:1px solid var(--line); background: rgba(255,255,255,.03);}
+    .tag{
+      display:inline-flex; gap:8px; align-items:center;
+      padding:8px 10px; border-radius:999px;
+      border:1px solid rgba(255,168,51,.22);
+      background: rgba(255,168,51,.10);
+      color:var(--a1);
+      font-weight:900; letter-spacing:.10em; text-transform:uppercase; font-size:12px;
+    }
+    .p-name{font-size:34px; font-weight:950; margin:10px 0 8px; letter-spacing:.02em}
+    .p-sub{color:var(--muted); margin:0 0 12px}
+    .p-list{margin:0; padding-left:18px; color:rgba(255,255,255,.85)}
+    .p-list li{margin:8px 0}
+    .p-foot{display:flex; justify-content:space-between; gap:10px; align-items:center; margin-top:14px}
+    .pill{padding:10px 12px; border-radius:14px; background: rgba(255,255,255,.04); border:1px solid rgba(255,255,255,.10); font-weight:800; font-size:13px}
+
+    /* Transparency */
+    .split{display:grid; grid-template-columns: 1.15fr .85fr; gap:14px;}
+    .panel{padding:20px}
+    .panel h3{margin:0 0 10px}
+    .list{margin:0; padding-left:18px; color:rgba(255,255,255,.86)}
+    .list li{margin:10px 0}
+    .facts{
+      background: rgba(255,255,255,.92);
+      color:#121216;
+      border-radius: 18px;
+      padding:18px;
+    }
+    .facts .row{display:flex; justify-content:space-between; gap:10px; padding:7px 0; border-bottom:1px solid rgba(0,0,0,.10)}
+    .facts .row:last-child{border-bottom:0}
+    .facts .note{font-size:12px; opacity:.75; margin-top:10px}
+
+    /* Gallery carousel */
+    .carousel{
+      position:relative;
+      border-radius: var(--r);
+      overflow:hidden;
+      border:1px solid var(--line);
+      background: rgba(255,255,255,.03);
+      min-height: 320px;
+    }
+    .slides{display:flex; transition: transform .5s ease;}
+    .slide{min-width:100%; position:relative;}
+    .slide img{width:100%; height:320px; object-fit:cover; display:block; opacity:.95}
+    .cap{
+      position:absolute; left:14px; bottom:14px;
+      padding:12px 14px; border-radius:16px;
+      background: rgba(10,10,14,.65);
+      border:1px solid rgba(255,255,255,.12);
+      backdrop-filter: blur(10px);
+      max-width: 85%;
+    }
+    .cap strong{display:block; letter-spacing:.10em; text-transform:uppercase; font-size:12px}
+    .cap span{display:block; color:rgba(255,255,255,.72); margin-top:4px; font-size:13px}
+    .car-btn{
+      position:absolute; top:50%; transform: translateY(-50%);
+      width:44px; height:44px; border-radius:999px;
+      border:1px solid rgba(255,255,255,.18);
+      background: rgba(0,0,0,.35);
+      color:var(--text); font-weight:900;
+      display:flex; align-items:center; justify-content:center;
+      cursor:pointer;
+    }
+    .car-btn:hover{background: rgba(0,0,0,.5)}
+    .prev{left:10px}
+    .next{right:10px}
+
+    /* Signup */
+    .signup{padding:20px}
+    form{display:flex; gap:10px; flex-wrap:wrap; margin-top:10px}
+    input{
+      flex: 1 1 240px;
+      padding:12px 14px;
+      border-radius:14px;
+      border:1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.04);
+      color: var(--text);
+      outline:none;
+    }
+    .tiny{font-size:12px; color:rgba(255,255,255,.62)}
+    footer{padding:26px 0 42px; border-top:1px solid var(--line); color:rgba(255,255,255,.72)}
+
+    /* Reveal animation */
+    .reveal{opacity:0; transform: translateY(14px); transition: all .7s ease;}
+    .reveal.on{opacity:1; transform: translateY(0);}
+
+    @media (max-width: 920px){
+      .navlinks{display:none;}
+      .hero{grid-template-columns:1fr}
+      .hero-right{min-height: 340px}
+      .grid3{grid-template-columns:1fr}
+      .products{grid-template-columns:1fr}
+      .split{grid-template-columns:1fr}
+    }
+  </style>
+</head>
+
+<body>
+  <div class="nav">
+    <div class="wrap nav-inner">
+      <div class="brand" aria-label="Vyta">
+        <span>VY</span><span class="bolt" aria-hidden="true"></span><span>TA</span>
+      </div>
+      <div class="navlinks">
+        <a href="#products">Products</a>
+        <a href="#transparency">Transparency</a>
+        <a href="#gallery">Gallery</a>
+        <a href="#contact">Launch</a>
+      </div>
+      <a class="btn primary" href="#contact">Get Updates</a>
+    </div>
+  </div>
+
+  <div class="wrap">
+    <!-- HERO -->
+    <div class="hero">
+      <div class="card hero-left reveal">
+        <div class="kicker"><span class="bolt" aria-hidden="true"></span> Performance Gummies</div>
+        <h1>Fuel your second half.</h1>
+        <p class="sub">
+          <strong>Vyta Charge</strong> is a non-stimulant intra-workout gummy designed to support
+          <strong>pump, hydration, and endurance</strong> — without the crash or sugar overload.
+        </p>
+
+        <div class="chips">
+          <div class="chip good">Non-Stimulant</div>
+          <div class="chip good">Low Sugar</div>
+          <div class="chip">BCAAs (2:1:1)</div>
+          <div class="chip">Electrolytes</div>
+          <div class="chip">Taurine • Citrulline • Betaine</div>
+        </div>
+
+        <div class="cta">
+          <a class="btn primary" href="#contact">Join the launch list</a>
+          <a class="btn" href="#transparency">See the formula</a>
+        </div>
+        <div class="fine">Tropical Citrus Fusion • 50 gummies per jar (concept)</div>
+      </div>
+
+      <div class="card hero-right reveal">
+        <div class="hero-media">
+          <!-- Add an AI hero photo at: /assets/hero.jpg -->
+          <img src="assets/hero.jpg" alt="Vyta clean athletic lifestyle" />
+        </div>
+        <div class="hero-overlay"></div>
+        <div class="hero-badge">
+          <strong>Pump • Hydration • Endurance</strong>
+          <span>Built for training sessions when energy starts to dip.</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- VALUE PROPS -->
+    <section class="reveal">
+      <div class="grid3">
+        <div class="tile">
+          <h3>Pump support</h3>
+          <p>Citrulline + targeted amino support designed for pumps and performance.</p>
+        </div>
+        <div class="tile">
+          <h3>Hydration</h3>
+          <p>Electrolyte support to help maintain fluid balance during training.</p>
+        </div>
+        <div class="tile">
+          <h3>Endurance</h3>
+          <p>Formulated to help you hold performance when fatigue shows up.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- PRODUCTS -->
+    <section id="products" class="reveal">
+      <div class="title">
+        <h2>The Vyta Line</h2>
+        <div class="muted">Start with Charge. Expand into Restore + more.</div>
+      </div>
+
+      <div class="products">
+        <div class="p-card">
+          <div class="tag">⚡ CHARGE</div>
+          <div class="p-name">Intra-Workout</div>
+          <p class="p-sub">Designed for during training. Non-stimulant. Low sugar. Built to keep you going.</p>
+          <ul class="p-list">
+            <li><strong>Benefits:</strong> Pump • Hydration • Endurance</li>
+            <li><strong>Positioning:</strong> Fuel your second half</li>
+            <li><strong>Flavour:</strong> Tropical Citrus Fusion</li>
+          </ul>
+          <div class="p-foot">
+            <div class="pill">50 gummies / jar</div>
+            <a class="btn" href="#contact">Get launch access</a>
+          </div>
+        </div>
+
+        <div class="p-card">
+          <div class="tag">🧊 RESTORE</div>
+          <div class="p-name">Recovery</div>
+          <p class="p-sub">Coming next: recovery gummies designed to support post-workout replenishment.</p>
+          <ul class="p-list">
+            <li><strong>Goal:</strong> Restore after training</li>
+            <li><strong>Feel:</strong> Calm, clean, premium</li>
+            <li><strong>Status:</strong> Concept / in development</li>
+          </ul>
+          <div class="p-foot">
+            <div class="pill">Join to vote flavours</div>
+            <a class="btn" href="#contact">Get updates</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TRANSPARENCY -->
+    <section id="transparency" class="reveal">
+      <div class="title">
+        <h2>Ingredient Transparency</h2>
+        <div class="muted">Clear roles. No nonsense.</div>
+      </div>
+
+      <div class="split">
+        <div class="card panel">
+          <h3>Active ingredients & what they do</h3>
+          <ul class="list">
+            <li><strong>Betaine Anhydrous</strong> — supports muscle hydration, power output, and endurance during training.</li>
+            <li><strong>L-Citrulline</strong> — supports blood flow, pumps, and sustained exercise performance.</li>
+            <li><strong>Taurine</strong> — helps regulate hydration and supports muscular endurance.</li>
+            <li><strong>BCAAs (2:1:1)</strong> — support muscle preservation and help reduce fatigue during training.</li>
+            <li><strong>Electrolytes</strong> — help maintain fluid balance and support muscle function (sodium, potassium, magnesium).</li>
+          </ul>
+        </div>
+
+        <div class="card panel">
+          <div class="facts">
+            <h3>Supplement Facts (concept)</h3>
+            <div class="row"><span>Serving Size</span><strong>8 Gummies</strong></div>
+            <div class="row"><span>Servings Per Container</span><strong>6–7</strong></div>
+            <div style="height:10px"></div>
+            <div class="row"><span>Betaine Anhydrous</span><strong>2.5 g</strong></div>
+            <div class="row"><span>Taurine</span><strong>2 g</strong></div>
+            <div class="row"><span>L-Citrulline</span><strong>2 g</strong></div>
+            <div class="row"><span>BCAAs (2:1:1)</span><strong>2.5 g</strong></div>
+            <div class="row"><span>Sodium</span><strong>250 mg</strong></div>
+            <div class="row"><span>Potassium</span><strong>150 mg</strong></div>
+            <div class="row"><span>Magnesium</span><strong>50 mg</strong></div>
+            <div class="note">* Nutritional values to be finalised by manufacturer.</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- GALLERY -->
+    <section id="gallery" class="reveal">
+      <div class="title">
+        <h2>Gallery</h2>
+        <div class="muted">Add AI visuals + your jar renders.</div>
+      </div>
+
+      <div class="carousel" aria-label="Image carousel">
+        <div class="slides" id="slides">
+          <div class="slide">
+            <img src="assets/lifestyle1.jpg" alt="Training lifestyle image 1" />
+            <div class="cap"><strong>Intra-Workout</strong><span>Made for when your session starts to dip.</span></div>
+          </div>
+          <div class="slide">
+            <img src="assets/lifestyle2.jpg" alt="Training lifestyle image 2" />
+            <div class="cap"><strong>Non-Stimulant</strong><span>Performance support without the crash.</span></div>
+          </div>
+          <div class="slide">
+            <img src="assets/hero.jpg" alt="Training lifestyle image 3" />
+            <div class="cap"><strong>Tropical Citrus</strong><span>Flavour-first gummy experience.</span></div>
+          </div>
+        </div>
+        <button class="car-btn prev" aria-label="Previous" onclick="move(-1)">‹</button>
+        <button class="car-btn next" aria-label="Next" onclick="move(1)">›</button>
+      </div>
+    </section>
+
+    <!-- LAUNCH -->
+    <section id="contact" class="reveal">
+      <div class="card signup">
+        <div class="title" style="margin:0 0 6px">
+          <h2>Get launch access</h2>
+          <div class="muted">Early batch updates • flavour votes • launch pricing</div>
+        </div>
+
+        <form onsubmit="return handleSignup(event)">
+          <input id="email" type="email" placeholder="you@example.com" required />
+          <button class="btn primary" type="submit">Notify me</button>
+          <span id="msg" class="tiny"></span>
+        </form>
+
+        <div class="tiny" style="margin-top:10px;">
+          No spam. Unsubscribe anytime. Disclaimer: Not intended to diagnose, treat, cure, or prevent any disease.
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      <div style="display:flex; justify-content:space-between; gap:12px; flex-wrap:wrap;">
+        <div><strong>Vyta</strong> — performance gummies for training.</div>
+        <div class="tiny">© <span id="year"></span> Vyta. All rights reserved.</div>
+      </div>
+    </footer>
+  </div>
+
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+
+    // demo signup (replace later with Mailchimp/ConvertKit)
+    function handleSignup(e){
+      e.preventDefault();
+      const msg = document.getElementById("msg");
+      msg.textContent = "You're on the list.";
+      msg.style.color = "rgba(255,255,255,.75)";
+      document.getElementById("email").value = "";
+      return false;
+    }
+
+    // carousel
+    let idx = 0;
+    const slides = document.getElementById("slides");
+    const total = slides.children.length;
+    function move(dir){
+      idx = (idx + dir + total) % total;
+      slides.style.transform = `translateX(${-idx * 100}%)`;
+    }
+    setInterval(()=>move(1), 6500);
+
+    // reveal
+    const els = document.querySelectorAll(".reveal");
+    const obs = new IntersectionObserver((entries)=>{
+      entries.forEach(e=>{
+        if(e.isIntersecting) e.target.classList.add("on");
+      });
+    }, {threshold: 0.12});
+    els.forEach(el=>obs.observe(el));
+  </script>
+</body>
+</html>
